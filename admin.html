@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - One Health Clinic</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e0f2f1;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #004d40;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .login-container, .dashboard {
+      max-width: 500px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #00796b;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background-color: #004d40;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #e0f2f1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Admin Panel - One Health Clinic</h1>
+  </header>
+
+  <div class="login-container" id="loginForm">
+    <h2>Admin Login</h2>
+    <label for="username">Username</label>
+    <input type="text" id="username" placeholder="Enter admin username" />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter password" />
+
+    <button onclick="login()">Login</button>
+    <p id="loginMsg" style="color:red;"></p>
+  </div>
+
+  <div class="dashboard hidden" id="dashboard">
+    <h2>Welcome, Admin</h2>
+
+    <h3>Appointments</h3>
+    <table>
+      <tr><th>Name</th><th>Date</th><th>Time</th><th>Reason</th></tr>
+      <tr><td>John Doe</td><td>2025-04-22</td><td>10:00 AM</td><td>Flu Checkup</td></tr>
+      <tr><td>Jane Smith</td><td>2025-04-23</td><td>02:30 PM</td><td>Dental Cleaning</td></tr>
+    </table>
+
+    <h3>Feedback</h3>
+    <ul>
+      <li>John: Great service!</li>
+      <li>Jane: Very helpful staff!</li>
+    </ul>
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const msg = document.getElementById("loginMsg");
+
+      if (user === "admin" && pass === "1234") {
+        document.getElementById("loginForm").classList.add("hidden");
+        document.getElementById("dashboard").classList.remove("hidden");
+        msg.textContent = "";
+      } else {
+        msg.textContent = "Invalid credentials!";
+      }
+    }
+  </script>
+</body>
+</html>
