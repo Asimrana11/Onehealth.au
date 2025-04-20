@@ -19,9 +19,9 @@
       text-align: center;
     }
 
-    .login-container, .dashboard {
-      max-width: 500px;
-      margin: 3rem auto;
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
       padding: 2rem;
       background: white;
       border-radius: 10px;
@@ -76,6 +76,28 @@
     th {
       background-color: #e0f2f1;
     }
+
+    .actions button {
+      background-color: #c62828;
+      color: white;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.9rem;
+      margin: 0.2rem;
+    }
+
+    #logoutBtn {
+      background-color: #d84315;
+      margin-top: 2rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      margin-bottom: 0.7rem;
+    }
   </style>
 </head>
 <body>
@@ -83,7 +105,8 @@
     <h1>Admin Panel - One Health Clinic</h1>
   </header>
 
-  <div class="login-container" id="loginForm">
+  <!-- LOGIN FORM -->
+  <div class="container" id="loginForm">
     <h2>Admin Login</h2>
     <label for="username">Username</label>
     <input type="text" id="username" placeholder="Enter admin username" />
@@ -95,36 +118,66 @@
     <p id="loginMsg" style="color:red;"></p>
   </div>
 
-  <div class="dashboard hidden" id="dashboard">
+  <!-- DASHBOARD -->
+  <div class="container hidden" id="dashboard">
     <h2>Welcome, Admin</h2>
 
     <h3>Appointments</h3>
-    <table>
-      <tr><th>Name</th><th>Date</th><th>Time</th><th>Reason</th></tr>
-      <tr><td>John Doe</td><td>2025-04-22</td><td>10:00 AM</td><td>Flu Checkup</td></tr>
-      <tr><td>Jane Smith</td><td>2025-04-23</td><td>02:30 PM</td><td>Dental Cleaning</td></tr>
+    <table id="appointmentsTable">
+      <tr><th>Name</th><th>Date</th><th>Time</th><th>Reason</th><th>Action</th></tr>
+      <tr>
+        <td>John Doe</td><td>2025-04-22</td><td>10:00 AM</td><td>Flu Checkup</td>
+        <td class="actions"><button onclick="deleteRow(this)">Delete</button></td>
+      </tr>
+      <tr>
+        <td>Jane Smith</td><td>2025-04-23</td><td>2:30 PM</td><td>Dental Cleaning</td>
+        <td class="actions"><button onclick="deleteRow(this)">Delete</button></td>
+      </tr>
     </table>
 
     <h3>Feedback</h3>
-    <ul>
-      <li>John: Great service!</li>
-      <li>Jane: Very helpful staff!</li>
+    <ul id="feedbackList">
+      <li>John: Great service! <button onclick="deleteFeedback(this)">Delete</button></li>
+      <li>Jane: Very helpful staff! <button onclick="deleteFeedback(this)">Delete</button></li>
     </ul>
+
+    <button id="logoutBtn" onclick="logout()">Logout</button>
   </div>
 
   <script>
+    // Obfuscated password check (not secure for production)
+    const correctUsername = "admin";
+    const correctPassword = atob("MTIzNA=="); // '1234' in base64
+
     function login() {
       const user = document.getElementById("username").value;
       const pass = document.getElementById("password").value;
       const msg = document.getElementById("loginMsg");
 
-      if (user === "admin" && pass === "1234") {
+      if (user === correctUsername && pass === correctPassword) {
         document.getElementById("loginForm").classList.add("hidden");
         document.getElementById("dashboard").classList.remove("hidden");
         msg.textContent = "";
       } else {
         msg.textContent = "Invalid credentials!";
       }
+    }
+
+    function deleteRow(button) {
+      const row = button.parentElement.parentElement;
+      row.remove();
+    }
+
+    function deleteFeedback(button) {
+      const item = button.parentElement;
+      item.remove();
+    }
+
+    function logout() {
+      document.getElementById("dashboard").classList.add("hidden");
+      document.getElementById("loginForm").classList.remove("hidden");
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
     }
   </script>
 </body>
